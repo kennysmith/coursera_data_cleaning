@@ -94,7 +94,7 @@ tidy_data <- function(full_data=NULL, data_dir='UCI HAR Dataset') {
     # 5. CREATE TIDY DATASET WITH AVG OF EACH VAR FOR EACH SUBJECT AND ACTIVITY
     ######
     if(missing(full_data)) {
-        full_data = labeled_data()
+        full_data = labeled_data(data_dir)
     }
     subj_act_means =
         full_data %>%
