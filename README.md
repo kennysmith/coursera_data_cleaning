@@ -1,8 +1,3 @@
----
-title: "readme.MD"
-output: html_document
----
-
 ## READ ME
 
 run_analysis.R requires that you download the UCI HAR Dataset:
