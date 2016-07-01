@@ -121,7 +121,13 @@ $(document).ready(function () {
 
 <div id="codebook-for-run_analysis.r" class="section level2">
 <h2>Codebook for run_analysis.R</h2>
-<p>run_analysis.R requires that you download the UCI HAR Dataset: <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a>. Many of these functions require a parameter called <code>data_dir</code>, which you should set to point to the location of your local UCI HAR Dataset.</p>
+<p>run_analysis.R requires that you download the UCI HAR Dataset: <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a>.</p>
+<p>Many of these functions require a parameter called <code>data_dir</code>, which you should set to point to the location of your local UCI HAR Dataset. Functions that require <code>full_data</code> need as an input the result from the <code>merge_data</code> function.</p>
+<div id="list-of-functions" class="section level3">
+<h3>LIST OF FUNCTIONS</h3>
+<p><code>merge_data(data_dir)</code>: Returns a data.table object with the x, y and subject data for the train and test datasets in the UCI HAR Dataset.</p>
+<p><code>mean_st_dev(full_data)</code>: Returns a data.table object with the mean and standard deviation for each column in the merged data.</p>
+<p><code>add_variable_labels(full_data, data_dir)</code>: Returns the full dataset but instead of generically labeled <code>V1</code>, <code>V2</code>, <code>VX</code> columns, the columns are labeled according to the names given in UCI HAR Dataset/features.txt.</p>
 <p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
 <pre class="r"><code>summary(cars)</code></pre>
 <pre><code>##      speed           dist       
@@ -131,6 +137,7 @@ $(document).ready(function () {
 ##  Mean   :15.4   Mean   : 42.98  
 ##  3rd Qu.:19.0   3rd Qu.: 56.00  
 ##  Max.   :25.0   Max.   :120.00</code></pre>
+</div>
 </div>
 <div id="including-plots" class="section level2">
 <h2>Including Plots</h2>
