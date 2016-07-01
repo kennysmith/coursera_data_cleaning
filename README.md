@@ -5,6 +5,9 @@ run_analysis.R requires that you download the UCI HAR Dataset:
 
 Many of these functions require a parameter called `data_dir`, which you should set to point to the location of your local UCI HAR Dataset.  Functions that require `full_data` need as an input the result from the `merge_data` function.
 
+### GETTING TIDY DATA
+To get tidy data from this script, simply run `tidy_data()`.
+
 ### LIST OF FUNCTIONS
 `merge_data(data_dir)`: Returns a data.table object with the x, y and subject data for the train and test datasets in the UCI HAR Dataset.
 

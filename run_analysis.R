@@ -1,18 +1,18 @@
-merge_data <- function(data_dir) {
+merge_data <- function(data_dir='UCI HAR Dataset') {
     ######
     #  1. EXTRACT MEAN AND STANDARD DEVIATION FOR EACH MEASUREMENT
     ######
-    # datadir: Path to the unzipped data
+    # data_dir: Path to the unzipped data
     library(data.table)
     library(stringr)
     
     # Load data
-    xtest <- fread(paste0(datadir, '/test/X_test.txt'))
-    ytest <- fread(paste0(datadir, '/test/y_test.txt'))
-    subjectstest <- fread(paste0(datadir, '/test/subject_test.txt'))
-    xtrain <- fread(paste0(datadir, '/train/X_train.txt'))
-    ytrain <- fread(paste0(datadir, '/train/y_train.txt'))
-    subjectstrain <- fread(paste0(datadir, '/train/subject_train.txt'))
+    xtest <- fread(paste0(data_dir, '/test/X_test.txt'))
+    ytest <- fread(paste0(data_dir, '/test/y_test.txt'))
+    subjectstest <- fread(paste0(data_dir, '/test/subject_test.txt'))
+    xtrain <- fread(paste0(data_dir, '/train/X_train.txt'))
+    ytrain <- fread(paste0(data_dir, '/train/y_train.txt'))
+    subjectstrain <- fread(paste0(data_dir, '/train/subject_train.txt'))
     
     xtest$y <- ytest$V1
     xtest$subject <- subjectstest$V1
@@ -41,14 +41,14 @@ mean_st_dev <- function(full_data) {
         )
 }
 
-add_activity_labels <- function(full_data, data_dir) {
+add_activity_labels <- function(full_data, data_dir='UCI HAR Dataset') {
     ######
     #  3. USE DESCRIPTIVE ACTIVITY NAMES TO NAME THE ACTIVITIES IN THE DATASET
     ######
     library(plyr)
     activities <- data.table(
         read.csv(
-            paste0(datadir, '/activity_labels.txt'), 
+            paste0(data_dir, '/activity_labels.txt'), 
             header = FALSE
             )
         )
@@ -61,13 +61,13 @@ add_activity_labels <- function(full_data, data_dir) {
     return(full_data)
 }
 
-add_variable_labels <- function(full_data, data_dir) {
+add_variable_labels <- function(full_data, data_dir='UCI HAR Dataset') {
     ######
     #  4. APPROPRIATELY LABELS THE DATASET WITH DESCRIPTIVE VARIABLES
     ######
     feats <- data.table(
         read.csv(
-            paste0(datadir, '/features.txt'),
+            paste0(data_dir, '/features.txt'),
             header = FALSE,
             sep = " ",
             stringsAsFactors=FALSE
@@ -79,7 +79,7 @@ add_variable_labels <- function(full_data, data_dir) {
     return(full_data)
 }
 
-labeled_data <- function(data_dir) {
+labeled_data <- function(data_dir='UCI HAR Dataset') {
     ######
     # Combines the previous 3 data cleaning functions into one function.
     ######
@@ -89,10 +89,13 @@ labeled_data <- function(data_dir) {
     return(full_data)
 }
 
-tidy_data <- function(full_data) {
+tidy_data <- function(full_data=NULL, data_dir='UCI HAR Dataset') {
     ######
     # 5. CREATE TIDY DATASET WITH AVG OF EACH VAR FOR EACH SUBJECT AND ACTIVITY
     ######
+    if(missing(full_data)) {
+        full_data = labeled_data()
+    }
     subj_act_means =
         full_data %>%
         group_by(subject, activity_name) %>%
